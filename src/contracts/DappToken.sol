@@ -3,6 +3,7 @@ pragma solidity ^0.5.0;
 contract DappToken {
     string  public name = "DApp Token";
     string  public symbol = "DAPP";
+    address private owner;
     uint256 public totalSupply = 1000000000000000000000000; // 1 million tokens
     uint8   public decimals = 18;
 
@@ -22,7 +23,12 @@ contract DappToken {
     mapping(address => mapping(address => uint256)) public allowance;
 
     constructor() public {
-        balanceOf[msg.sender] = totalSupply;
+      balanceOf[msg.sender] = totalSupply;
+      owner = msg.sender;
+    }
+
+    function getBalance() public view returns (uint256) {
+      return owner.balance;
     }
 
     function transfer(address _to, uint256 _value) public returns (bool success) {
